@@ -1,0 +1,96 @@
+/* FILE: styles.css */
+/* Styles the transparent holographic stage, caption, prompt input, and stop button. */
+:root { --orb-color: #cc7700; --panel: rgba(4, 2, 0, .68); --text: #fff4df; }
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: transparent; color: var(--text); font-family: Segoe UI, system-ui, sans-serif; user-select: none; }
+#orb-canvas { width: 100%; height: 100%; display: block; -webkit-app-region: drag; }
+#window-controls { position: absolute; z-index: 4; top: 8px; right: 8px; display: flex; gap: 4px; -webkit-app-region: no-drag; }
+#window-controls button { width: 22px; height: 21px; padding: 0; border: 1px solid #735000; border-radius: 6px; background: rgba(12, 7, 0, .72); color: #ffd78c; font: 13px/1 Segoe UI, sans-serif; cursor: pointer; box-shadow: 0 0 8px rgba(255, 161, 0, .3); }
+#window-controls button:hover { background: #6d3a00; border-color: #ffc14d; box-shadow: 0 0 14px #ff9d00; }
+#window-controls button[data-action="close"]:hover { background: #9e1919; border-color: #ff7676; box-shadow: 0 0 14px #ff3333; }
+#caption-text { position: absolute; z-index: 2; bottom: 4%; left: 6%; right: 6%; min-height: 20px; text-align: center; font-size: 13px; letter-spacing: .03em; color: rgba(190, 215, 235, 0.65); text-shadow: 0 0 8px color-mix(in srgb, var(--orb-color), transparent 60%); transition: opacity .8s ease; pointer-events: none; }
+#caption-text.is-hidden { opacity: 0; }
+#backend-status { position:absolute; z-index:5; left:10px; right:10px; top:42px; text-align:center; color:#ffb36b; font-size:11px; }
+#backend-status.is-hidden { display:none; }
+body.backend-offline #orb-canvas { filter: saturate(.15) grayscale(.8); }
+#approval-panel, #audit-panel { position:absolute; z-index:8; left:8px; right:8px; top:54px; max-height:58%; overflow:auto; padding:10px; border:1px solid #8d6400; border-radius:8px; background:rgba(8,5,0,.94); font-size:11px; }
+#settings-panel { position:absolute; z-index:9; right:8px; top:38px; width:220px; padding:12px; border:1px solid #8d6400; border-radius:8px; background:rgba(8,5,0,.96); font-size:11px; -webkit-app-region:no-drag; }
+#settings-panel header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-weight:600; color:#ffd78c; }
+#settings-close { width:18px; height:18px; padding:0; border:1px solid #735000; border-radius:4px; background:rgba(12,7,0,.72); color:#ffd78c; cursor:pointer; font:12px/1 sans-serif; }
+#settings-close:hover { background:#6d3a00; }
+#settings-panel label { display:flex; align-items:center; justify-content:space-between; margin:7px 0; }
+#settings-panel input { width:120px; margin-left:8px; padding:4px 6px; border:1px solid #735000; border-radius:5px; background:rgba(12,7,0,.72); color:var(--text); font:inherit; user-select:text; }
+#settings-panel input:focus { outline:none; border-color:#ffc14d; box-shadow:0 0 8px rgba(255,161,0,.3); }
+#settings-save { margin-top:10px; width:100%; padding:6px; border:1px solid #987000; border-radius:6px; background:#362300; color:#ffe4ac; cursor:pointer; }
+#settings-save:hover { background:#6d3a00; }
+#approval-panel.is-hidden, #audit-panel.is-hidden, #settings-panel.is-hidden, #phone-panel.is-hidden { display:none; }
+#phone-panel { position:absolute; z-index:9; right:8px; top:38px; width:250px; padding:12px; border:1px solid #0088cc; border-radius:8px; background:rgba(0,12,24,.96); font-size:11px; -webkit-app-region:no-drag; }
+#phone-panel header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-weight:600; color:#88ddff; }
+#phone-close { width:18px; height:18px; padding:0; border:1px solid #006699; border-radius:4px; background:rgba(0,18,36,.72); color:#88ddff; cursor:pointer; font:12px/1 sans-serif; }
+#phone-status-line { margin-bottom:8px; color:#66ccff; font-weight:500; font-size:10px; }
+.phone-input-row { display:flex; gap:6px; margin-bottom:6px; }
+.phone-input-row input { flex:1; min-width:0; padding:4px 6px; border:1px solid #006699; border-radius:5px; background:rgba(0,18,36,.72); color:var(--text); font:inherit; font-size:11px; user-select:text; }
+.phone-input-row input:focus { outline:none; border-color:#00aaff; box-shadow:0 0 8px rgba(0,170,255,.4); }
+.phone-btn-row { display:flex; gap:6px; margin-top:8px; }
+.phone-btn-row button { flex:1; padding:5px; border:1px solid #0077aa; border-radius:5px; background:#003355; color:#cceeff; font-size:10px; cursor:pointer; }
+.phone-btn-row button:hover { background:#004477; border-color:#00aaff; }
+#approval-diff, #audit-findings { white-space:pre-wrap; user-select:text; max-height:180px; overflow:auto; }
+#approval-yes, #approval-no { margin-right:7px; padding:5px 10px; border-radius:5px; border:1px solid #987000; background:#362300; color:#ffe4ac; cursor:pointer; }
+#caption-text.is-hidden { opacity: 0; }
+
+/* Subtitle area: shows user speech & Jarvis responses just below the orb center */
+#subtitle-area { position: absolute; z-index: 2; top: 55%; left: 4%; right: 4%; text-align: center; pointer-events: none; display: flex; flex-direction: column; gap: 3px; }
+.subtitle-line { font-size: 11px; letter-spacing: .02em; font-weight: 300; padding: 2px 6px; border-radius: 6px; transition: opacity .6s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.subtitle-line.is-hidden { opacity: 0; }
+#subtitle-user { color: rgba(160, 190, 220, 0.5); font-style: italic; }
+#subtitle-jarvis { color: rgba(200, 225, 245, 0.75); text-shadow: 0 0 6px color-mix(in srgb, var(--orb-color), transparent 65%); }
+body.is-hidden #subtitle-area { display: none; }
+#prompt-container { position: absolute; z-index: 3; bottom: 7%; left: 6%; right: 6%; display: flex; gap: 6px; -webkit-app-region: no-drag; }
+#prompt-input, #stop-btn, #mic-btn, #tts-btn { border: 1px solid color-mix(in srgb, var(--orb-color), transparent 25%); background: var(--panel); color: var(--text); box-shadow: 0 0 10px color-mix(in srgb, var(--orb-color), transparent 55%); }
+#prompt-input { min-width: 0; flex: 1; padding: 8px 11px; outline: none; border-radius: 14px; font: inherit; font-size: 12px; user-select: text; }
+#prompt-input:focus { box-shadow: 0 0 16px var(--orb-color); }
+#prompt-input::placeholder { color: #c5aa83; }
+#mic-btn { width: 34px; border-radius: 11px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: opacity .25s, box-shadow .25s, border-color .25s; }
+#mic-btn:hover { box-shadow: 0 0 14px var(--orb-color); }
+#mic-btn.is-muted { opacity: 0.45; border-color: #ff4444; box-shadow: 0 0 8px #ff3333; }
+#tts-btn { width: 34px; border-radius: 11px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: opacity .25s, box-shadow .25s, border-color .25s; }
+#tts-btn:hover { box-shadow: 0 0 14px var(--orb-color); }
+#tts-btn.is-muted { opacity: 0.45; border-color: #ff4444; box-shadow: 0 0 8px #ff3333; }
+#stop-btn { width: 34px; border-radius: 11px; opacity: .22; cursor: default; transition: opacity .25s, box-shadow .25s; }
+#stop-btn.is-active { opacity: 1; cursor: pointer; border-color: #ff4444; box-shadow: 0 0 14px #ff3333; }
+
+/* Hidden (mini badge) mode: window shrinks to a small badge with a bold "U". */
+body.is-hidden #window-controls,
+body.is-hidden #prompt-container,
+body.is-hidden #caption-text,
+body.is-hidden #orb-canvas { display: none; }
+#mini-badge { display: none; position: absolute; inset: 0; align-items: center; justify-content: center;
+  font: 800 26px/1 Segoe UI, sans-serif; color: #33bbff; text-shadow: 0 0 10px #00aaff, 0 0 20px #0088ff;
+  background: rgba(0, 20, 40, 0.85); border: 2px solid #0099ff; border-radius: 10px; cursor: pointer; user-select: none;
+  box-shadow: 0 0 14px #0088ff; animation: badge-pulse 2s ease-in-out infinite; }
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 10px #0088ff; border-color: #0099ff; }
+  50% { box-shadow: 0 0 22px #00bbff, 0 0 34px #0088ff; border-color: #44ccff; }
+}
+body.is-hidden #mini-badge { display: flex; }
+
+/* Fullscreen cinematic mode: pure focus on the stunning orb, zero UI distractions */
+body.is-fullscreen {
+  background: radial-gradient(circle at 50% 50%, #061120 0%, #02070f 55%, #000000 100%) !important;
+}
+body.is-fullscreen #window-controls,
+body.is-fullscreen #prompt-container,
+body.is-fullscreen #caption-text,
+body.is-fullscreen #subtitle-area,
+body.is-fullscreen #mini-badge {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+body.is-fullscreen #orb-canvas {
+  -webkit-app-region: no-drag !important;
+  cursor: default;
+}
+#window-controls, #prompt-container, #caption-text, #subtitle-area {
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}

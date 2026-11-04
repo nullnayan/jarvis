@@ -1,0 +1,13 @@
+title = "Jarvis secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Empty example values can make the multiline rule capture the next variable label"
+condition = "AND"
+regexes = ['''^GROQ_API_KEY_[1-5]=$''']
+paths = ['''(^|/)\.env\.example$''']

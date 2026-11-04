@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- FILE: index.html -->
+<!-- Provides the Three.js 3D Holographic Globe canvas and HTML controls layered over the orb. -->
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jarvis</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <canvas id="orb-canvas"></canvas>
+  <div id="mini-badge" aria-label="Restore Jarvis" title="Click to restore">J</div>
+  <div id="window-controls" aria-label="Window controls">
+    <button id="phone-toggle" aria-label="Phone Link" title="Phone Link">📱</button><button id="settings-toggle" aria-label="Settings">⚙</button><button data-action="hide" aria-label="Hide Jarvis">👁</button><button data-action="minimize" aria-label="Minimize">−</button><button data-action="fullscreen" aria-label="Toggle fullscreen">⛶</button><button data-action="close" aria-label="Close Jarvis">×</button>
+  </div>
+  <div id="subtitle-area" aria-live="polite">
+    <div id="subtitle-user" class="subtitle-line is-hidden"></div>
+    <div id="subtitle-jarvis" class="subtitle-line is-hidden"></div>
+  </div>
+  <div id="caption-text" class="is-hidden" aria-live="polite"></div>
+  <div id="backend-status" class="is-hidden" aria-live="polite">Backend offline — reconnecting…</div>
+  <section id="approval-panel" class="is-hidden" aria-label="Proposed source change"><header>Proposed change</header><pre id="approval-diff"></pre><div><button id="approval-yes">Approve</button><button id="approval-no">Reject</button><button id="approval-open">Open in VS Code</button></div></section>
+  <section id="audit-panel" class="is-hidden" aria-label="Self audit findings"><header>Self-audit findings</header><div id="audit-findings"></div></section>
+  <section id="plan-progress-panel" class="is-hidden" aria-label="Plan progress"><header>Executing plan…</header><div id="plan-progress-text"></div></section>
+  <div id="permission-toast" class="is-hidden" aria-live="assertive" role="alert"></div>
+  <section id="phone-panel" class="is-hidden" aria-label="Phone Link">
+    <header>Phone Link <button id="phone-close" aria-label="Close phone panel">×</button></header>
+    <div id="phone-status-line">Disconnected</div>
+    <div class="phone-input-row">
+      <input id="phone-host" type="text" placeholder="IP Address (e.g. 192.168.1.5)">
+      <input id="phone-port" type="text" placeholder="Port (e.g. 5555)" value="5555">
+    </div>
+    <div class="phone-input-row">
+      <input id="phone-code" type="password" placeholder="Pairing code (if pairing)" autocomplete="off">
+    </div>
+    <div class="phone-btn-row">
+      <button id="phone-connect-btn">Connect</button>
+      <button id="phone-disconnect-btn">Disconnect</button>
+      <button id="phone-mirror-btn">Mirror Screen</button>
+      <button id="phone-screencap-btn">Screenshot</button>
+    </div>
+  </section>
+  <section id="settings-panel" class="is-hidden" aria-label="Settings">
+    <header>Settings <button id="settings-close" aria-label="Close settings">×</button></header>
+    <label>Name <input data-setting="name" type="text"></label>
+    <label>City <input data-setting="city" type="text"></label>
+    <label>Language <input data-setting="language" type="text"></label>
+    <label>Voice rate <input data-setting="voice_rate" type="text"></label>
+    <label>Voice pitch <input data-setting="voice_pitch" type="text"></label>
+    <button id="settings-save">Save</button>
+  </section>
+  <div id="prompt-container"><button id="mic-btn" aria-label="Toggle microphone" title="Toggle microphone">🎤</button><button id="tts-btn" aria-label="Toggle Jarvis voice" title="Toggle Jarvis voice">🔊</button><input id="prompt-input" aria-label="Ask Jarvis" placeholder="Ask Jarvis..." autocomplete="off"><button id="stop-btn" aria-label="Stop">⏹</button></div>
+  <script type="importmap">{"imports":{"three":"../node_modules/three/build/three.module.js","three/addons/":"../node_modules/three/examples/jsm/"}}</script>
+  <script type="module" src="app.js"></script>
+</body></html>

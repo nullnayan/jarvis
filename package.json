@@ -1,0 +1,16 @@
+{
+  "name": "jarvis-face",
+  "version": "1.0.0",
+  "description": "Jarvis holographic orb desktop interface",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "three": "^0.170.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^45.2.2"
+  }
+}
